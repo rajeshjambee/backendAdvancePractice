@@ -17,17 +17,3 @@ connectDB()
   .catch((err) => {
     console.log("MONGO db connection failed !!! ", err);
   });
-
-// import express from "express";
-
-// const app = express();
-
-// app.get("/", (req, res) => {
-//   res.send("Hello World");
-// });
-
-// const PORT = 8000;
-
-// app.listen(PORT, () => {
-//   console.log(`Listening on ${PORT}`);
-// });
