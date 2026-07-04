@@ -52,9 +52,8 @@ const userSchema = new Schema(
 );
 
 userSchema.pre("save", async function (next) {
-  if (this.isModified("password")) {
-    this.password = bcrypt.hash(this.password, 10);
-  }
+  if (this.isModified("password"))
+    this.password = await bcrypt.hash(this.password, 10);
   next();
 });
 
@@ -77,8 +76,8 @@ userSchema.methods.generateAccessToken = function () {
   );
 };
 
-userSchema.methods.generateRefreshToken(function () {
-  jwt.sign(
+userSchema.methods.generateRefreshToken = function () {
+  return jwt.sign(
     {
       id: this.id,
       email: this.email,
@@ -90,6 +89,6 @@ userSchema.methods.generateRefreshToken(function () {
       expiresIn: process.env.REFRESH_TOKEN_EXPIRY,
     },
   );
-});
+};
 
 export const User = mongoose.model("User", userSchema);
